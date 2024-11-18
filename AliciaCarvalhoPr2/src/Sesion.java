@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Sesion{
@@ -6,9 +7,10 @@ public class Sesion{
     // ATTRIBUTES
     private int id; // genera de forma automatica
     private float precio; // unico y fijo
-    private LocalDate horaInicio;
+    private LocalTime horaInicio;
     private float recaudacion;
     private boolean [][] asientos; // almaciena si cada uno de los asientos ya o no vendido para la sesion
+    private Cine cine;
 
     // CONSTRUCTOR
     public Sesion(float precio) {
@@ -18,9 +20,9 @@ public class Sesion{
     // METHODS
     public Entrada reservarEntrada(int fila, int butaca){
 
-        Entrada entrada = new Entrada(); // caso butaca esteja libre
+        Entrada entrada = new Entrada(fila, butaca); // caso butaca esteja libre
         // verifica si la butaca esta libre y altera la recaudacion
-        return new Entrada(); // con la info de la entrada reservada
+        return new Entrada(fila, butaca); // con la info de la entrada reservada
     }
 
     public ArrayList<Entrada> reservarEntradas(int cantidad){
@@ -67,12 +69,12 @@ public class Sesion{
         this.precio = precio;
     }
 
-    public LocalDate getHoraInicio() {
+    public LocalTime getHoraInicio() {
         return horaInicio;
     }
 
     public void setHoraInicio(LocalDate horaInicio) {
-        this.horaInicio = horaInicio;
+        this.horaInicio = LocalTime.from(horaInicio);
     }
 
     public float getRecaudacion() {

@@ -6,11 +6,15 @@ public class Cine {
     // ATTRIBUTES
     private String nombre;
     private String ubicacion;
+    private ArrayList<Sala> salas;
+    private ArrayList<Pelicula> peliculas;
 
     // CONSTRUCTOR
     public Cine(String nombre, String ubicacion) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
+        this.salas = new ArrayList<>();
+        this.peliculas = new ArrayList<>();
     }
 
     // METHODS

@@ -6,8 +6,10 @@ public class Pelicula {
     private String genero;
 
     // CONSTRUCTOR
-    public Pelicula(String titulo) {
+    public Pelicula(String titulo, int duracion, String genero) {
         this.titulo = titulo;
+        this.duracion = duracion;
+        this.genero = genero;
     }
 
     //this.duracion = duracion; // duracion de la pelicula en MINUTOS

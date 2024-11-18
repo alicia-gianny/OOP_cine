@@ -8,7 +8,9 @@ public class Entrada {
     private String tituloPelicula;
 
     // CONSTRUCTOR
-    public Entrada(){
+    public Entrada(int fila, int butacaEnFila){
+        this.fila = fila;
+        this.butacaEnFila = butacaEnFila;
         // chama funcion obtenerInfo
     }
 
