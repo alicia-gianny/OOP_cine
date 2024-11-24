@@ -12,6 +12,7 @@ public class Pelicula {
         setGenero(genero);     // validación dentro del metodo setGenero
     }
 
+
     // MODIFIES METHODS SETTERS
 
     public void setTitulo(String titulo) {

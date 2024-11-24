@@ -6,6 +6,22 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
 
+    public static void menu(){
+        // menu que permite ejecutar las funciones:
+        System.out.println("----------------------------------------------------");
+        System.out.println("   BIENVENIDO AL CINE ALICIA   ");
+        System.out.println("----------------------------------------------------");
+        System.out.println("Elija la opcion que desea hacer:");
+        System.out.println("(1)  Añadir peliculas");
+        System.out.println("(2)  Eliminar peliculas");
+        System.out.println("(3)  Crear una sesion");
+        System.out.println("(4)  Mostrar estado de sesion");
+        System.out.println("(5)  Comprar entradas");
+        System.out.println("(6)  Ver Recaudacion");
+        System.out.println("(7)  Salir");
+        System.out.println("----------------------------------------------------");
+    }
+
     public static void main(String[] args) {
 
         // --------------------------------------------
@@ -31,24 +47,9 @@ public class Main {
         Sala sala2 = new Sala("2", 15, 15);
         cine.agregarSala(sala1);
         cine.agregarSala(sala2);
-
-
         // --------------------------------------------
 
-        // menu que permite ejecutar las funciones:
-        System.out.println("-------------------------------");
-        System.out.println("   BIENVENIDO AL CINE ALICIA   ");
-        System.out.println("-------------------------------");
-        System.out.println("Elija la opcion que desea hacer:");
-        System.out.println("(1)  Añadir peliculas");
-        System.out.println("(2)  Eliminar peliculas");
-        System.out.println("(3)  Crear una sesion");
-        System.out.println("(4)  Mostrar estado de sesion");
-        System.out.println("(5)  Comprar entradas");
-        System.out.println("(6)  Ver Recaudacion");
-        System.out.println("(7)  Salir");
-        System.out.println("--------------------------------");
-
+        menu();
         System.out.print(">> OPCIÓN: ");
         int opcion = sc.nextInt();
 
@@ -71,12 +72,12 @@ public class Main {
                     // bucle que repite hasta crear una pelicula de datos validos
                     do {
                         System.out.println("Insira los datos de la pelicula:\n");
-                        System.out.print("Introduce el titulo >> ");
+                        System.out.print(">> Introduce el titulo: ");
                         sc.nextLine(); // Limpia el buffer antes de leer la próxima linea.
                         tituloPeli = sc.nextLine();
-                        System.out.print("Duracion (minutos) >> ");
+                        System.out.print(">> Duracion (minutos): ");
                         duracion = sc.nextInt();
-                        System.out.print("Introduce el género (Drama, Terror, Comedia, Ciencia Ficción) >> "); // puede ser SOLAMENTE "Drama", "Terror", "Comedia", "Ciencia Ficcion"
+                        System.out.print(">> Introduce el género (Drama, Terror, Comedia, Ciencia Ficción): "); // puede ser SOLAMENTE "Drama", "Terror", "Comedia", "Ciencia Ficcion"
                         sc.nextLine();
                         genero = sc.nextLine();
                         pelicula = new Pelicula(tituloPeli, duracion, genero);
@@ -88,10 +89,12 @@ public class Main {
                     System.out.println(pelicula);
                     System.out.println("----------------------------------------------------");
 
-                    System.out.println("\nSalas vacias:");
+                    System.out.println("\nSALAS VACIAS:");
                     for (Sala sala : cine.getSalas()) {
                         if (sala.estaVacia()) {
-                            System.out.println("\n- Sala " + sala.getNumero());
+                            System.out.println("----------------------------------------------------");
+
+                            System.out.println("- Número de la sala " + sala.getNumero());
                             System.out.println("- Filas: " + sala.getFilas());
                             System.out.println("- Butacas en fila: " + sala.getButacasEnFila());
                         }else{
@@ -99,11 +102,12 @@ public class Main {
                         }
                     }
 
+                    System.out.println("----------------------------------------------------");
                     if(ocupadas == 2){
                         System.out.println("Sin salas vacias para proyectar la pelicula!\n " +
                                 "Libere una sala eliminando pelicula!");
                     }else{
-                        System.out.println("\nInserte el numero de la sala para proyectar la pelicula: ");
+                        System.out.println("\n>> Numero de la sala para proyectar la pelicula: ");
                         numeroSala = sc.next();
                         cine.agregarPelicula(pelicula, numeroSala);
                     }
@@ -124,6 +128,8 @@ public class Main {
                         System.out.println("\nSala 1: ");
                         System.out.println("Pelicula para proyección: \n" + sala1.getPelicula().toString());
                     }
+                    System.out.println("---------------------------------------------------------");
+
                     if(sala2.estaVacia()){
                         System.out.println("\nSala 2: \nSin pelicula para proyección.");
                     }else{
@@ -143,7 +149,6 @@ public class Main {
                             cine.eliminarPelicula(sala2.getPelicula(), numeroSala);
                         }
                     }
-
                     break;
 
                 case CREAR_SESION: // CREAR SESION
@@ -155,17 +160,19 @@ public class Main {
                     System.out.println("Salas con peliculas asignadas: ");
                     for (Sala sala : cine.getSalas()) {
                         if (!sala.estaVacia()) {
+                            System.out.println("----------------------------------------------------");
+
                             System.out.println("\nNumero sala:" + sala.getNumero());
                             System.out.println("Pelicula para proyección: \n" + sala1.getPelicula().toString());
                         }else{
                             libre++;
                         }
                     }
-
                     if(libre == 2){
                         System.out.println("No se puede asignar nueva sesion!\n " +
                                 "Añada una nueva pelicula para asignar nueva seseión.");
                     }else{
+                        System.out.println("----------------------------------------------------");
                         System.out.print(">> Inserte el numero de la sala para crear nueva sesión: ");
                         numeroSala = sc.next();
                         System.out.print(">> Introduce el precio de la sesion (euro): ");
@@ -193,11 +200,11 @@ public class Main {
                     System.out.println("\n----------- OPCIÓN 4:ESTADO DE SESIÓN -----------\n");
                     // muestra graficamente por consola el estado actual de ocupacion
 
-                    System.out.println("---------------------------------------");
+                    System.out.println("----------------------------------------------------");
                     System.out.println("Sesiones disponibles: ");
 
                     for(Sesion sesion: cine.getSesiones()){
-                        System.out.println("---------------------------------------");
+                        System.out.println("----------------------------------------------------");
                         System.out.println("Id Sesion: " + sesion.getId());
                         System.out.println("Numero de la sala: " + sesion.getSala().getNumero());
                         System.out.println("Pelicula: " + sesion.getSala().getPelicula());
@@ -205,7 +212,7 @@ public class Main {
                         System.out.println("Precio: " + sesion.getPrecio() + " euros.");
                     }
 
-                    System.out.println("---------------------------------------");
+                    System.out.println("----------------------------------------------------");
                     System.out.print(">> Informe el Id de la sesion que desea consultar su estado: ");
                     id_sesion = sc.next();
 
@@ -225,19 +232,19 @@ public class Main {
                 case COMPRAR_ENTRADAS: // COMPRAR ENTRADAS
                     System.out.println("\n----------- OPCIÓN 5: COMPRAR ENTRADAS -----------\n");
 
-                    System.out.println("---------------------------------------");
+                    System.out.println("----------------------------------------------------");
                     System.out.println("Sesiones disponibles: ");
 
                     for(Sesion sesion: cine.getSesiones()){
-                        System.out.println("---------------------------------------");
+                        System.out.println("----------------------------------------------------");
                         System.out.println("Id Sesion: " + sesion.getId());
                         System.out.println("Numero de la sala: " + sesion.getSala().getNumero());
                         System.out.println("Pelicula: " + sesion.getSala().getPelicula());
                         System.out.println("Horario de inicio (hh:mm): " + sesion.getHoraInicio());
-                        System.out.println("Precio: " + sesion.getPrecio() + " euros.");
+                        System.out.println("Precio: " + sesion.getPrecio() + " €.");
                     }
 
-                    System.out.println("---------------------------------------");
+                    System.out.println("----------------------------------------------------");
                     System.out.print(">> Informe el Id de la sesion que desea comprar entrada: ");
                     id_sesion = sc.next();
 
@@ -263,23 +270,15 @@ public class Main {
                         }
 
                         if (sesionSelecionada != null) {
-                            // Tentar reservar os assentos
-                            ArrayList<int[]> asientosAsignados = sesionSelecionada.reservarEntradas(cantidad);
+                            ArrayList<Entrada> entradasCompradas = sesionSelecionada.reservarEntradas(cantidad, sesionSelecionada.getSala().getPelicula().getTitulo());
 
-                            if (!asientosAsignados.isEmpty()) {
-                                // Exibir resumo da compra
-                                System.out.println("¡Compra realizada com sucesso!");
-                                System.out.println("Resumo de entradas compradas:");
-                                System.out.println("- Película: " + sesionSelecionada.getSala().getPelicula().getTitulo());
-                                System.out.println("- Sala: " + sesionSelecionada.getSala().getNumero());
-                                System.out.println("- Hora: " + sesionSelecionada.getHoraInicio());
-                                System.out.println("- Asientos asignados:");
-                                for (int[] asiento : asientosAsignados) {
-                                    System.out.println("  Fila " + (char) ('A' + asiento[0]) + " - Asiento " + (asiento[1] + 1));
+                            if (!entradasCompradas.isEmpty()) {
+                                System.out.println("Compra realizada com sucesso!");
+                                for (Entrada entrada : entradasCompradas) {
+                                    System.out.println(entrada.obtenerInfo());
                                 }
                             } else {
-                                // Caso não seja possível reservar
-                                System.out.println("Erro: Não foi possível reservar " + cantidad + " entradas. Tente novamente.");
+                                System.out.println("Não foi possível reservar os assentos solicitados.");
                             }
                         } else {
                             System.out.println("Erro: Sessão não encontrada.");
@@ -293,6 +292,7 @@ public class Main {
                     // MUESTRA LA RECAUDACION TOTAL
                     System.out.println("\n----------- OPCIÓN 6: OBTENER RECAUDACIÓN -----------\n");
                     cine.obtenerRecaudacion();
+
                     break;
 
                 case SALIR: // SALIR
@@ -304,6 +304,7 @@ public class Main {
             }
 
             System.out.println("----------------------------------------------------");
+            menu();
             System.out.print(">> NUEVA OPCIÓN: ");
             opcion = sc.nextInt();
 

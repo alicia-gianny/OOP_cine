@@ -24,11 +24,10 @@ public class Sesion{
     }
 
     // METHODS
-    public ArrayList<int[]> reservarEntradas(int cantidad){
-        boolean[][] asientos = getAsientos();
+    public ArrayList<Entrada> reservarEntradas(int cantidad, String tituloPelicula) {
+        ArrayList<Entrada> entradas = new ArrayList<>(); // Lista de entradas a serem retornadas
         int filas = asientos.length;
         int columnas = asientos[0].length;
-        ArrayList<int[]> asientosAsignados = new ArrayList<>();
 
         // Gerar lista de filas em ordem de prioridade (as mais centrais primeiro)
         ArrayList<Integer> ordenFilas = new ArrayList<>();
@@ -47,14 +46,19 @@ public class Sesion{
                     asientosTemporales.add(new int[]{fila, columna});
                     consecutivos++;
                     if (consecutivos == cantidad) {
-                        // Adiciona assentos temporários à lista final
-                        asientosAsignados.addAll(asientosTemporales);
-                        this.recaudacion = this.recaudacion+ cantidad*precio;
-                        // Marca os assentos como ocupados
-                        for (int[] asiento : asientosAsignados) {
-                            asientos[asiento[0]][asiento[1]] = true;
+                        // Adicionar entradas com base nos assentos disponíveis
+                        for (int[] asiento : asientosTemporales) {
+                            int filaAsignada = asiento[0];
+                            int columnaAsignada = asiento[1];
+                            // Criar e adicionar a entrada
+                            Entrada entrada = new Entrada(filaAsignada, columnaAsignada, precio, sala.getNumero(), tituloPelicula);
+                            entradas.add(entrada);
+
+                            // Marcar o assento como ocupado
+                            asientos[filaAsignada][columnaAsignada] = true;
                         }
-                        return asientosAsignados; // Retorna os assentos atribuídos
+                        recaudacion += precio * cantidad;
+                        return entradas; // Retorna as entradas atribuídas
                     }
                 } else {
                     // Reinicia se não houver continuidade
@@ -64,8 +68,8 @@ public class Sesion{
             }
         }
 
-        // Caso não seja possível atribuir
-        return new ArrayList<>(); // Retorna lista vazia se não houver assentos disponíveis
+        // Caso não seja possível atribuir entradas, retorna uma lista vazia
+        return entradas;
     }
 
     public String obtenerEstadoSesion(){

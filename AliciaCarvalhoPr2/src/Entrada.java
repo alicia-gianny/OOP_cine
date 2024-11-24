@@ -1,25 +1,30 @@
 public class Entrada {
 
     // ATTRIBUTES
-    private static int fila;
-    private static int butacaEnFila;
+    private int fila;
+    private int butacaEnFila;
     private float precio;
     private String numeroSala;
     private String tituloPelicula;
 
     // CONSTRUCTOR
-    public Entrada(int fila, int butacaEnFila){
+
+    public Entrada(int fila, int butacaEnFila, float precio, String numeroSala, String tituloPelicula) {
         this.fila = fila;
         this.butacaEnFila = butacaEnFila;
-
-        // chama funcion obtenerInfo
+        this.precio = precio;
+        this.numeroSala = numeroSala;
+        this.tituloPelicula = tituloPelicula;
     }
 
+
     // METHODS
-    public static String obtenerInfo() {
-        // devulver el texto formateado con la informacion de la entrada
-        String s = "Titulo Pelicula: " + tituloPelicula + " | Fila: " + fila + " | Butaca: " + butacaEnFila;
-        return s;
+    public String obtenerInfo() {
+        char letraFila = (char) ('A' + fila); // Convertiendo el índice de la fila para una letra (A, B, C...)
+        return String.format(
+                "Título Película: %s | Fila: %s | Asiento: %d | Sala: %s | Precio: %.2f €",
+                tituloPelicula, letraFila, butacaEnFila + 1, numeroSala, precio
+        );
     }
 
     // MODIFIERS METHODS GETTERS AND SETTERS
