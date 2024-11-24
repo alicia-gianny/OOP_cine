@@ -1,8 +1,8 @@
 public class Entrada {
 
     // ATTRIBUTES
-    private int fila;
-    private int butacaEnFila;
+    private static int fila;
+    private static int butacaEnFila;
     private float precio;
     private String numeroSala;
     private String tituloPelicula;
@@ -11,13 +11,15 @@ public class Entrada {
     public Entrada(int fila, int butacaEnFila){
         this.fila = fila;
         this.butacaEnFila = butacaEnFila;
+
         // chama funcion obtenerInfo
     }
 
     // METHODS
-    public String obtenerInfo() {
+    public static String obtenerInfo() {
         // devulver el texto formateado con la informacion de la entrada
-        return tituloPelicula; // variable provisoria, aun sin retorno
+        String s = "Titulo Pelicula: " + tituloPelicula + " | Fila: " + fila + " | Butaca: " + butacaEnFila;
+        return s;
     }
 
     // MODIFIERS METHODS GETTERS AND SETTERS

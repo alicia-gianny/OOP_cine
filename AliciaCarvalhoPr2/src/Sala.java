@@ -7,31 +7,28 @@ public class Sala {
     private Pelicula pelicula;
 
     // CONSTRUCTOR
-    public Sala(String numero, int filas, int butacasEnFila, Pelicula pelicula) {
-        this.numero = numero;
-        this.filas = filas;
-        this.butacasEnFila = butacasEnFila;
-        this.pelicula = pelicula;
-    }
-
     public Sala(String numero, int filas, int butacasEnFila) {
         this.numero = numero;
         this.filas = filas;
         this.butacasEnFila = butacasEnFila;
+        this.pelicula = null; // sala vacia por defecto
     }
 
+
     // METHODS
-    public boolean estaVacia(int numero){
-
-
-
-        // retorna true si no tiene adignada ninguna peli
-        return this.filas == 0;
-
+    public boolean estaVacia(){
+        if(getPelicula() == null){
+            return true; // sala vacia
+        }else{
+            return false; // sala ocupada
+        }
     }
 
     public void eliminarPelicula(){
-        // desasigna la pelicula que tiene asignada actualmente
+        setPelicula(null);
+        if(getPelicula() != null){
+            System.out.println("Error al eliminar pelicula.");
+        }
     }
 
 
