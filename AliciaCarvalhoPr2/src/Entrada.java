@@ -21,6 +21,7 @@ public class Entrada {
     // METHODS
     public String obtenerInfo() {
         char letraFila = (char) ('A' + fila); // Convertiendo el índice de la fila para una letra (A, B, C...)
+        // Si fila = 0, el cálculo es 65 + 0 = 65, que corresponde a 'A'.
         return String.format(
                 "Título Película: %s | Fila: %s | Asiento: %d | Sala: %s | Precio: %.2f €",
                 tituloPelicula, letraFila, butacaEnFila + 1, numeroSala, precio

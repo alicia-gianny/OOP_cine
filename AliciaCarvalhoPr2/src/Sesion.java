@@ -25,36 +25,36 @@ public class Sesion{
 
     // METHODS
     public ArrayList<Entrada> reservarEntradas(int cantidad, String tituloPelicula) {
-        ArrayList<Entrada> entradas = new ArrayList<>(); // Lista de entradas a serem retornadas
-        int filas = asientos.length;
-        int columnas = asientos[0].length;
+        ArrayList<Entrada> entradas = new ArrayList<>(); // Lista de entradas
+        int filas = asientos.length; // toma las filas como el tamaño del array de asientos
+        int columnas = asientos[0].length; // dimension de los asientos = columnas
 
-        // Gerar lista de filas em ordem de prioridade (as mais centrais primeiro)
+        // Generar lista de filas en ordem de prioridad (las mas centrales primero)
         ArrayList<Integer> ordenFilas = new ArrayList<>();
         for (int i = 0; i < filas; i++) {
             ordenFilas.add(i);
         }
-        ordenFilas.sort(Comparator.comparingInt(fila -> Math.abs(fila - filas / 2)));
+        ordenFilas.sort(Comparator.comparingInt(fila -> Math.abs(fila - filas / 2))); // toma la fila más central
 
-        // Tentar atribuir os assentos
+        // Tentar atribuir los asientos
         for (int fila : ordenFilas) {
             int consecutivos = 0;
             ArrayList<int[]> asientosTemporales = new ArrayList<>();
 
             for (int columna = 0; columna < columnas; columna++) {
-                if (!asientos[fila][columna]) { // Se o assento está livre
+                if (!asientos[fila][columna]) { // si asiento libre
                     asientosTemporales.add(new int[]{fila, columna});
                     consecutivos++;
                     if (consecutivos == cantidad) {
-                        // Adicionar entradas com base nos assentos disponíveis
+                        // si consecutivos igual a la cantidad de entradas a comprar
                         for (int[] asiento : asientosTemporales) {
                             int filaAsignada = asiento[0];
                             int columnaAsignada = asiento[1];
-                            // Criar e adicionar a entrada
+                            // cria y adiciona la entrada
                             Entrada entrada = new Entrada(filaAsignada, columnaAsignada, precio, sala.getNumero(), tituloPelicula);
                             entradas.add(entrada);
 
-                            // Marcar o assento como ocupado
+                            // marca asiento como ocupado
                             asientos[filaAsignada][columnaAsignada] = true;
                         }
                         recaudacion += precio * cantidad;
@@ -68,7 +68,7 @@ public class Sesion{
             }
         }
 
-        // Caso não seja possível atribuir entradas, retorna uma lista vazia
+        // Caso no sea posible atribuir las entradas, devuelve una lista vacia
         return entradas;
     }
 
@@ -79,7 +79,7 @@ public class Sesion{
         // Encabezado de la matriz (numeración de las columnas)
         estado.append("  ");
         for (int j = 0; j < asientos[0].length; j++) {
-            estado.append(String.format("%2d", j + 1)).append(" ");
+            estado.append(String.format("%2d", j + 1)).append(" "); // etiqueta de las columnas
         }
         estado.append("\n");
 
